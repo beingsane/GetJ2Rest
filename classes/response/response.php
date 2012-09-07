@@ -1,15 +1,15 @@
 <?php defined('_JEXEC') || die('=;)');
-    /**
-     * @package    MiniCC
-     * @subpackage REST.classes
-     * @author     Nikolai Plath {@link https://github.com/elkuku}
-     * @author     Created on 18-Aug-2012
-     * @license    GNU/GPL
-     */
+/**
+ * @package    GetJ2Rest
+ * @subpackage REST.classes
+ * @author     Nikolai Plath {@link https://github.com/elkuku}
+ * @author     Created on 18-Aug-2012
+ * @license    GNU/GPL
+ */
 
-    /**
-     * JSON response class.
-     */
+/**
+ * JSON response class.
+ */
 abstract class RestResponse
 {
     /**

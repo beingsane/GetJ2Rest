@@ -1,15 +1,15 @@
 <?php defined('_JEXEC') || die('=;)');
-    /**
-     * @package    Pizzza
-     * @subpackage REST.classes
-     * @author     Nikolai Plath {@link https://github.com/elkuku}
-     * @author     Created on 18-Aug-2012
-     * @license    GNU/GPL
-     */
+/**
+ * @package    GetJ2Rest
+ * @subpackage REST.classes
+ * @author     Nikolai Plath {@link https://github.com/elkuku}
+ * @author     Created on 18-Aug-2012
+ * @license    GNU/GPL
+ */
 
-    /**
-     * JSON response class.
-     */
+/**
+ * JSON response class.
+ */
 final class RestResponseXml extends RestResponse
 {
     /**
@@ -19,7 +19,6 @@ final class RestResponseXml extends RestResponse
 
     public function __toString()
     {
-
         $this->xml = simplexml_load_string('<xml/>');
 
         $this->dataToXml($this->data);
@@ -39,7 +38,7 @@ final class RestResponseXml extends RestResponse
         {
             if(is_array($v) || is_object($v))
             {
-                $xmlChild =(is_null($xml))
+                $xmlChild = (is_null($xml))
                     ? $this->xml->addChild($k)
                     : $xml->addChild($k);
 

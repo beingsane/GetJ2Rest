@@ -1,6 +1,6 @@
 <?php defined('_JEXEC') || die('=;)');
 /**
- * @package    Pizzza
+ * @package    GetJ2Rest
  * @subpackage REST.classes
  * @author     Nikolai Plath {@link https://github.com/elkuku}
  * @author     Created on 18-Aug-2012
@@ -22,12 +22,7 @@ class RestLoginHelper
 
         if($credentials['username'] && $credentials['password'])
         {
-            $options = array(//---- WTF.... @todo
-                'autoregister' => false,
-                'group' => 'Administrator'
-            );
-
-            if(false === $application->login($credentials, $options))
+            if(false === $application->login($credentials, array()))
                 throw new RestExceptionAuthentication;
         }
 
