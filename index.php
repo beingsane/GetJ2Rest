@@ -48,8 +48,6 @@ class GetJ2Rest extends JApplicationWeb
 
         try
         {
-            RestLoginHelper::login();
-
             $rest = RestRequestCall::parseCall();
 
             if('json' != $rest->format)
@@ -61,6 +59,8 @@ class GetJ2Rest extends JApplicationWeb
 
                 $response = new $className;
             }
+
+            RestLoginHelper::login();
 
             JPluginHelper::importPlugin('restapi', $rest->call);
 
@@ -84,13 +84,18 @@ class GetJ2Rest extends JApplicationWeb
         {
             $response->setMessage('Authentication failure')
                 ->setStatus(4);
+
+            $this->setHeader('status', 401, true);
         }
         catch(InvalidArgumentException $e)
         {
             $response->setMessage($e->getMessage())
                 ->setStatus(5);
+
+            $this->setHeader('status', 406, true);
         }
 
+        $this->mimeType = $response->getMimeType();
         $this->setBody((string)$response);
 
         JApplication::getInstance('site')
@@ -98,7 +103,7 @@ class GetJ2Rest extends JApplicationWeb
     }
 
     /**
-     * This is used by Joomla!'s auth plugin to load the language...
+     * This is used by Joomla!'s auth plugin to load the language....
      *
      * @return bool
      */
@@ -123,17 +128,6 @@ class GetJ2Rest extends JApplicationWeb
     {
         return JApplication::getInstance('site')
             ->getClientId();
-    }
-}
-
-/**
- * I am a dummy :(...
- */
-class xJComponentHelper
-{
-    public static function getParams()
-    {
-        return new JRegistry;
     }
 }
 
