@@ -13,12 +13,49 @@
 final class RestResponseJson extends RestResponse
 {
     /**
-     * Magic toString method for sending the response in JSON format.
+     * @var string
+     */
+    private $callback = '';
+
+    /**
+     * Constructor.
      *
-     * @return  string  The response in JSON format
+     * @param object  $response  The Response data
+     * @param string  $message   The main response message
+     */
+    public function __construct($response = null, $message = '')
+    {
+        parent::__construct($response, $message);
+
+        $this->callback = JFactory::getApplication()->input->get('callback');
+    }
+
+    /**
+     * Get the response mime type.
+     *
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return ($this->callback)
+            ? 'text/javascript'
+            : 'application/x-json';
+    }
+
+    /**
+     * Convert to a string.
+     *
+     * @return string in JSON format
      */
     public function __toString()
     {
-        return json_encode(get_object_vars($this));
+        $temp = get_object_vars($this);
+
+        $json = json_encode($temp);
+
+        return ($this->callback)
+            ? $this->callback.'('.(string)$json.');'
+            : $json;
     }
+
 }

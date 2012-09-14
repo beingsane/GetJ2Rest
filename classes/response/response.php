@@ -8,7 +8,7 @@
  */
 
 /**
- * JSON response class.
+ * Base response class.
  */
 abstract class RestResponse
 {
@@ -21,7 +21,7 @@ abstract class RestResponse
 
     /**
      * Determines whether the request was successful.
-     * Status != 0 means error.
+     * A status != 0 means error.
      *
      * @var integer
      */
@@ -37,8 +37,8 @@ abstract class RestResponse
     /**
      * Constructor.
      *
-     * @param object  $response  The Response data
-     * @param string  $message   The main response message
+     * @param mixed  $response The Response data (object, array or Exception)
+     * @param string $message  The main response message
      */
     public function __construct($response = null, $message = '')
     {
@@ -62,7 +62,7 @@ abstract class RestResponse
     /**
      * Set the response status.
      *
-     * @param $status
+     * @param integer $status
      *
      * @return RestResponseJson
      */
@@ -76,7 +76,7 @@ abstract class RestResponse
     /**
      * Set the response message.
      *
-     * @param $message
+     * @param string $message
      *
      * @return RestResponseJson
      */
@@ -106,5 +106,17 @@ abstract class RestResponse
         return $this;
     }
 
+    /**
+     * Convert to a string.
+     *
+     * @return string
+     */
     public abstract function __toString();
+
+    /**
+     * Get the response mime type.
+     *
+     * @return string
+     */
+    abstract public function getMimeType();
 }
